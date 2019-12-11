@@ -19,11 +19,13 @@ pub enum GradeVal {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Grade {
+	pub id: Uuid,
 	pub name: String,
 	pub val: GradeVal,
 	pub description: Option<String>,
 	pub date: DateTime<Utc>,
 	pub subject: Uuid,
+	pub student: Uuid,
 }
 
 impl Table for Grade {
@@ -35,8 +37,13 @@ impl Table for Grade {
 	}
 }
 
+impl NewEntry for Grade {
+
+}
+
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Subject {
+	pub id: Uuid,
 	pub name: String,
 	pub description: String,
 	pub year: String,
@@ -55,6 +62,7 @@ impl Table for Subject {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Teacher {
+	pub id: Uuid,
 	pub name: String,
 	pub email: String,
 	pub subjects: Vec<Uuid>,
@@ -71,6 +79,7 @@ impl Table for Teacher {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Student {
+	pub id: Uuid,
 	pub name: String,
 	pub email: String,
 	pub subjects: Vec<Uuid>,

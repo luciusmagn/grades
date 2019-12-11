@@ -19,7 +19,7 @@ use std::marker::PhantomData;
 lazy_static! {
 	/// a global handle to the Sled database
 	pub static ref DB: RwLock<Db> = RwLock::new({
-		Db::open(&env::var("DATABASE_URL").expect("failed to read DATABASE_URL environment variable"))
+		sled::open(&env::var("DATABASE_URL").expect("failed to read DATABASE_URL environment variable"))
 			.expect("failed to open database")
 	});
 }
