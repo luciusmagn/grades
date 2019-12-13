@@ -11,13 +11,22 @@ sled  = "0.30"
 serde = "1"
 lazy_static = "1.4"
 serde_cbor = "0.10"
+serde_json = "1.0"
 rocket = "0.4.2"
+dotenv = "0.15"
+reqwest = "0.10"
+
+[dependencies.rejwt]
+path = "rejwt"
 
 [dependencies.uuid]
 version = "0.8.1"
-features = ["serde"]
+features = ["serde", "v4"]
 
 [dependencies.chrono]
 version = "0.4"
 features = ["serde"]
 
+[dependencies.rocket_contrib]
+version = "0.4.2"
+features = ["json"]

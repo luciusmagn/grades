@@ -1,0 +1,13 @@
+[package]
+authors = ["Alex Maslakov <me@gildedhonour.com>, <abc@nothingness.xyz>", "Lukáš Hozda <luk.hozda@gmail.com>"]
+description = "Implementation of JSON JWT with remedias changes"
+license = "Apache-2.0"
+name = "rejwt"
+repository = "https://gitlab.com/luciusmagn/remedias"
+version = "10.0.0"
+
+[dependencies]
+base64 = "0.10.0"
+openssl = "0.10.15"
+serde = "1.0.80"
+serde_json = "1.0.33"
