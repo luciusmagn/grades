@@ -44,11 +44,19 @@ fn main() {
 		.mount("/", routes![
 			index,
 			frontend,
+			endpoints::me,
 			endpoints::grades,
 			endpoints::subjects,
 			endpoints::teachers,
+			endpoints::students,
+			endpoints::login_student,
+			endpoints::login_teacher,
+			endpoints::my_description,
 			endpoints::register_student,
 			endpoints::register_teacher,
+			endpoints::new_subject,
+			endpoints::new_grade,
+			endpoints::sign_up,
 		])
 		.launch();
 }

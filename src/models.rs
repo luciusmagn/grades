@@ -6,17 +6,15 @@ use serde::{Deserialize, Serialize};
 use std::process::Command;
 
 use crate::db::{
-	Database,
 	Table,
 	NewEntry,
-	NewEntryPartial,
 };
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum GradeVal {
 	Regular(f32),
-	Bonus(u32),
-	Penalisation(u32),
+	Bonus(i32),
+	Penalisation(i32),
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -88,13 +86,13 @@ pub struct Subject {
 	pub teacher: Uuid,
 }
 
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct NewSubject {
 	pub name: String,
 	pub description: String,
 	pub year: String,
 	pub grade_formula: String,
 	pub kind: Kind,
-	pub teacher: Uuid,
 }
 
 impl Table for Subject {
@@ -120,7 +118,7 @@ impl NewEntry for Subject {
 			year: src.year,
 			grade_formula: src.grade_formula,
 			kind: src.kind,
-			teacher: src.teacher,
+			teacher: Uuid::new_v4(),
 			name: src.name,
 		})
 	}

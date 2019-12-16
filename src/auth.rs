@@ -61,7 +61,9 @@ impl<'a, 'r> FromRequest<'a, 'r> for AuthToken {
 		println!("lel");
 		match keys.get(0).unwrap_or(&"").split(' ').nth(1) {
 			Some(ref token) => {
-				let header = rejwt::decode_segments(&token).unwrap().0;
+				println!("{}", token);
+				let header = rejwt::decode_segments(&token.replace('"', "")).unwrap().0;
+				println!("{}", header);
 
 				if let Some(key_id) = header.get("kid") {
 					let user_id = Uuid::parse_str(key_id.as_str().unwrap()).ok().unwrap();
@@ -76,7 +78,7 @@ impl<'a, 'r> FromRequest<'a, 'r> for AuthToken {
 						}
 					};
 
-					match rejwt::decode(&token, &key, rejwt::Algorithm::RS256) {
+					match rejwt::decode(&token.replace('"', ""), &key, rejwt::Algorithm::RS256) {
 						Ok(t) => match serde_json::from_value::<AuthToken>(t.1) {
 							Ok(tok) => {
 								let now = Utc::now().timestamp();
@@ -102,10 +104,13 @@ impl<'a, 'r> FromRequest<'a, 'r> for AuthToken {
 								"token contains invalid data".to_string(),
 							)),
 						},
-						Err(_) => Outcome::Failure((
-							Status::Unauthorized,
-							"couldn't verify token".to_string(),
-						)),
+						Err(e) => {
+							println!("{}", e);
+							Outcome::Failure((
+								Status::Unauthorized,
+								"couldn't verify token".to_string(),
+							))
+						},
 					}
 				} else {
 					Outcome::Failure((
