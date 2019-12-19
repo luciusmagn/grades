@@ -1,0 +1,3 @@
+[submodule "grades-frontend"]
+	path = grades-frontend
+	url = https://github.com/luciusmagn/grades-frontend
